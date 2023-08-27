@@ -12,13 +12,14 @@ void display (struct student *);
 struct student * add_first(struct student *);
 struct student * del_first(struct student *);
 struct student * del_last(struct student *);
+struct student *del_middle(struct student *);
 int main()
 {
 	struct student *head=NULL;
 	int choice;
         while(1)
 	{
-	  printf("1:add_last 2:display  3:add_first 4:del_first 5:del_last 6:exit \n");
+	  printf("1:add_last 2:display  3:add_first 4:del_first 5:del_last 6: del_middle 7:exit \n");
 	  printf("enter choice\n");
 	  scanf("%d",&choice);
 	  switch(choice)
@@ -34,7 +35,9 @@ int main()
 		    break;
             case 5 :head=del_last(head);
 		    break;
-            case 6 :exit(0);		    
+	    case 6 :head =del_middle(head);
+		  break;
+            case 7 :exit(0);		    
 
 	  }
 	}
@@ -157,5 +160,25 @@ struct student* del_last(struct student *ptr)
 	}
 	return ptr;
 }
+
+struct student* del_middle (struct student *ptr)
+{
+    struct student *p,*q,*temp=NULL;
+    p=ptr,q=ptr;
+    
+    while(q&& q->link)
+    {
+        temp=p;
+        p=p->link;
+        q=q->link->link;
+    }
+    temp->link=p->link;
+    free(p);
+    p=NULL;
+    
+    
+    return ptr;
+}
+
 
 
